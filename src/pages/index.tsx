@@ -3,7 +3,7 @@ import axios from 'axios';
 import { ChangeEvent, useState } from 'react';
 import Image from 'next/image';
 
-export default function Home() {
+export function Home() {
   const [file, setFile] = useState<File[]>();
   const [image, setImage] = useState<string>();
 
