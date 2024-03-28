@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import axios from 'axios';
 import { ChangeEvent, useState } from 'react';
-import Image from 'next/image';
 import { Header } from '@/components/Header/Header';
 import { Layout } from '@/components/Layout/Layout';
 import { ImageList } from '@/components/ImageList/ImageList';
