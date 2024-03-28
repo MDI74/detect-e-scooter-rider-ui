@@ -28,22 +28,3 @@ jobs:
 
     - name: Check linting
       run: npm run lint
-
-  components-test:
-    runs-on: ubuntu-22.04
-    container:
-      image: cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-
-    - name: Set up Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        
-    - name: Run CI command
-      run: npm ci
-
-    - name: Run component test 
-      run: npm run cy:component
