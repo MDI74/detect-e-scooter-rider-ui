@@ -1,0 +1,59 @@
+.image-slider {
+  padding-top: 40px;
+
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__inner .image-gallery-thumbnails {
+    overflow: scroll;
+  }
+
+  &__inner,
+  &__inner &__original {
+    width: 300px;
+    height: 300px;
+
+    img {
+      object-fit: fill;
+    }
+
+    @include mobile-xl {
+      width: 350px;
+      height: 350px;
+    }
+
+    @include tablet {
+      width: 450px;
+      height: 450px;
+    }
+
+    @include tablet-xl {
+      width: 500px;
+      height: 500px;
+    }
+
+    @include desktop {
+      width: 540px;
+      height: 540px;
+    }
+
+    @include desktop-xl {
+      width: 640px;
+      height: 640px;
+    }
+  }
+
+  &__inner &__thumbnail {
+    overflow-x: scroll;
+
+    img {
+      height: 60px;
+
+      @include tablet {
+        height: 90px;
+      }
+    }
+  }
+}

@@ -1,5 +1,8 @@
 @import "./media";
+@import "./variables";
 @import "./reset";
 @import "./globals";
 @import "../components/Header/Header";
-@import "../components/ImageList/ImageList";
+@import "../components/ImageSlider/ImageSlider";
+@import "../components/ActionBar/ActionBar";
+@import "../components/Dropzone/Dropzone";
