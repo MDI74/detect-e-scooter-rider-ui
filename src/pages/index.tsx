@@ -1,21 +1,14 @@
 import Head from 'next/head';
-import axios from 'axios';
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 import { Header } from '@/components/Header/Header';
 import { Layout } from '@/components/Layout/Layout';
-import { ImageList } from '@/components/ImageList/ImageList';
+import { ImageSlider } from '@/components/ImageSlider/ImageSlider';
+import { ActionBar } from '@/components/ActionBar/ActionBar';
+import { Dropzone } from '@/components/Dropzone/Dropzone';
 
 export default function HomePage() {
-  const [file, setFile] = useState<File[]>();
   const [dataImage, setDataImage] = useState<string[]>([]);
-
-  async function getData() {
-    const formData = new FormData();
-    formData.append('file', file![0]);
-    const { data } = await axios.post('http://localhost:8000/detect-image', formData);
-
-    setDataImage([...dataImage, data]);
-  }
+  const [openDropZone, setOpenDropZone] = useState(true);
 
   return (
     <>
@@ -25,20 +18,21 @@ export default function HomePage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <input
-        onChange={handleChange}
-        type="file"
-        multiple
-      />
-      <button type="button" onClick={() => getData()}>Detect</button>
       <Layout>
-        { dataImage && <ImageList dataImageList={dataImage} />}
+        {!openDropZone && <ActionBar handleChangeStateDropZone={handleChangeStateDropZone} />}
+        {openDropZone && (
+          <Dropzone
+            dataImage={dataImage}
+            setDataImage={setDataImage}
+            handleChangeStateDropZone={handleChangeStateDropZone}
+          />
+        )}
+        { !openDropZone && dataImage.length !== 0 && <ImageSlider dataImageSrcList={dataImage} />}
       </Layout>
     </>
   );
 
-  function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    const fileList: File[] = Object.values(event.target.files!);
-    setFile(fileList);
+  function handleChangeStateDropZone() {
+    setOpenDropZone(!openDropZone);
   }
 }

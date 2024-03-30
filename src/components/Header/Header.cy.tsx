@@ -14,7 +14,7 @@ describe('Header', () => {
       .should('exist');
 
     cy.get('.header__title')
-      .should('have.text', 'E-SCOOTER RIDER DETECTER');
+      .should('have.text', 'E-SCOOTER RIDER DETECTOR');
   });
 });
 

@@ -1,0 +1,12 @@
+.action-bar {
+  &__wrapper {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+}
