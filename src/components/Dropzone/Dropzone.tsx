@@ -1,13 +1,16 @@
 import axios from 'axios';
 import ReactDropZone from 'react-dropzone';
 import clsx from 'clsx';
+import { ActionBar } from '../ActionBar/ActionBar';
 
 export function Dropzone(
   {
+    openDropZone,
     dataImage,
     setDataImage,
     handleChangeStateDropZone,
   }: {
+    openDropZone: boolean;
     dataImage: string[]
     setDataImage: (data: string[]) => void
     handleChangeStateDropZone: () => void
@@ -29,24 +32,18 @@ export function Dropzone(
             <input {...getInputProps()} />
             <div className="dropzone__inner">
               {dataImage.length !== 0 && (
-                <button
-                  type="button"
-                  className="dropzone__close-button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleChangeStateDropZone();
-                  }}
-                >
-                  Вернуться назад
-                </button>
+                <ActionBar
+                  openDropZone={openDropZone}
+                  handleChangeStateDropZone={handleChangeStateDropZone}
+                />
               )}
               <button
                 type="button"
-                className="dropzone__open-button"
+                className="button dropzone__choice-button"
               >
                 Выбрать изображения
               </button>
-              <p>Перетащите изображения cюда</p>
+              <p className="dropzone__description">или перетащите изображения cюда</p>
             </div>
 
           </div>

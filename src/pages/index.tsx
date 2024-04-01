@@ -19,9 +19,15 @@ export default function HomePage() {
       </Head>
       <Header />
       <Layout>
-        {!openDropZone && <ActionBar handleChangeStateDropZone={handleChangeStateDropZone} />}
+        {!openDropZone && (
+          <ActionBar
+            openDropZone={openDropZone}
+            handleChangeStateDropZone={handleChangeStateDropZone}
+          />
+        )}
         {openDropZone && (
           <Dropzone
+            openDropZone={openDropZone}
             dataImage={dataImage}
             setDataImage={setDataImage}
             handleChangeStateDropZone={handleChangeStateDropZone}

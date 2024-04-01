@@ -20,6 +20,25 @@ img {
   height: 100%;
 }
 
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 14px;
+  padding: 10px;
+  min-width: 150px;
+  min-height: 40px;
+  color: $color-white-second;
+  background-color: $color-blue;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $color-blue-hover;
+    transition: all 0.2s ease-in-out;
+  }
+}
+
 .container {
   margin-right: auto;
   margin-left: auto;
