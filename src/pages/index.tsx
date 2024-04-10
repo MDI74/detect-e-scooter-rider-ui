@@ -5,6 +5,7 @@ import { Layout } from '@/components/Layout/Layout';
 import { ImageSlider } from '@/components/ImageSlider/ImageSlider';
 import { ActionBar } from '@/components/ActionBar/ActionBar';
 import { Dropzone } from '@/components/Dropzone/Dropzone';
+import Preloader from '@/components/Preloader/Preloader';
 
 export default function HomePage() {
   const [dataImage] = useState<string[]>([]);
@@ -38,6 +39,7 @@ export default function HomePage() {
         )}
         { !openDropZone && dataImage.length !== 0 && <ImageSlider dataImageSrcList={dataImage} />}
       </Layout>
+      {isProcessDetection && <Preloader />}
     </>
   );
 

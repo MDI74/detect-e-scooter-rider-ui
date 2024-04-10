@@ -16,12 +16,14 @@ export function ActionBar({
           {openDropZone
             ? (
               <button
+
                 type="button"
                 className="button dropzone__close-button"
                 onClick={(e) => {
                   e.stopPropagation();
                   handleChangeStateDropZone();
                 }}
+                disabled={isProcessDetection}
               >
                 Вернуться назад
               </button>

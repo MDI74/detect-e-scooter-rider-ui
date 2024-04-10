@@ -1,6 +1,7 @@
 import axios from 'axios';
 import ReactDropZone from 'react-dropzone';
 import clsx from 'clsx';
+import React from 'react';
 import { ActionBar } from '../ActionBar/ActionBar';
 
 export function Dropzone(
@@ -19,7 +20,10 @@ export function Dropzone(
   },
 ) {
   return (
-    <ReactDropZone disabled={isProcessDetection} onDrop={(files) => detect({ files })}>
+    <ReactDropZone
+      disabled={isProcessDetection}
+      onDrop={(files) => detect({ files })}
+    >
       {({
         getRootProps, getInputProps, isDragAccept,
       }) => (
