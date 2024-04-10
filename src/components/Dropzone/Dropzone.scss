@@ -3,7 +3,7 @@
   text-align: center;
 
   &__inner {
-    position: relative;
+    padding-top: 20px;
   }
 
   &__choice-button {
@@ -14,13 +14,7 @@
   }
 
   &--drop {
-    border: 3px dashed $color-blue;
-    background-color: rgb($color-black, 30%);
-    transition: all 0.1s ease-in-out;
-  }
-
-  &--focused {
-    border: 3px dashed $color-blue;
+    background-color: rgb($color-black, 40%);
     transition: all 0.1s ease-in-out;
   }
 }

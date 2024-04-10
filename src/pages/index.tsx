@@ -7,8 +7,9 @@ import { ActionBar } from '@/components/ActionBar/ActionBar';
 import { Dropzone } from '@/components/Dropzone/Dropzone';
 
 export default function HomePage() {
-  const [dataImage, setDataImage] = useState<string[]>([]);
+  const [dataImage] = useState<string[]>([]);
   const [openDropZone, setOpenDropZone] = useState(true);
+  const [isProcessDetection, setIsProcessDetection] = useState(false);
 
   return (
     <>
@@ -21,16 +22,18 @@ export default function HomePage() {
       <Layout>
         {!openDropZone && (
           <ActionBar
+            isProcessDetection={isProcessDetection}
             openDropZone={openDropZone}
             handleChangeStateDropZone={handleChangeStateDropZone}
           />
         )}
         {openDropZone && (
           <Dropzone
+            isProcessDetection={isProcessDetection}
             openDropZone={openDropZone}
             dataImage={dataImage}
-            setDataImage={setDataImage}
             handleChangeStateDropZone={handleChangeStateDropZone}
+            handleSetIsProcessDetection={handleSetIsProcessDetection}
           />
         )}
         { !openDropZone && dataImage.length !== 0 && <ImageSlider dataImageSrcList={dataImage} />}
@@ -40,5 +43,9 @@ export default function HomePage() {
 
   function handleChangeStateDropZone() {
     setOpenDropZone(!openDropZone);
+  }
+
+  function handleSetIsProcessDetection(isProcessStarted: boolean) {
+    setIsProcessDetection(isProcessStarted);
   }
 }

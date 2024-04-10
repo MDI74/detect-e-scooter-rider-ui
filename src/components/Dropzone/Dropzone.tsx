@@ -5,41 +5,44 @@ import { ActionBar } from '../ActionBar/ActionBar';
 
 export function Dropzone(
   {
+    isProcessDetection,
     openDropZone,
     dataImage,
-    setDataImage,
     handleChangeStateDropZone,
+    handleSetIsProcessDetection,
   }: {
+    isProcessDetection: boolean
     openDropZone: boolean;
     dataImage: string[]
-    setDataImage: (data: string[]) => void
     handleChangeStateDropZone: () => void
+    handleSetIsProcessDetection: (isProcessStarted: boolean) => void
   },
 ) {
   return (
-    <ReactDropZone onDrop={(files) => detect({ files })}>
+    <ReactDropZone disabled={isProcessDetection} onDrop={(files) => detect({ files })}>
       {({
-        getRootProps, getInputProps, isDragAccept, isFocused,
+        getRootProps, getInputProps, isDragAccept,
       }) => (
         <section>
           <div {...getRootProps({
             className: clsx('dropzone', {
               'dropzone--drop': isDragAccept,
-              'dropzone--focused': isFocused,
             }),
           })}
           >
             <input {...getInputProps()} />
+            {dataImage.length !== 0 && (
+              <ActionBar
+                isProcessDetection={isProcessDetection}
+                openDropZone={openDropZone}
+                handleChangeStateDropZone={handleChangeStateDropZone}
+              />
+            )}
             <div className="dropzone__inner">
-              {dataImage.length !== 0 && (
-                <ActionBar
-                  openDropZone={openDropZone}
-                  handleChangeStateDropZone={handleChangeStateDropZone}
-                />
-              )}
               <button
                 type="button"
                 className="button dropzone__choice-button"
+                disabled={isProcessDetection}
               >
                 Выбрать изображения
               </button>
@@ -58,11 +61,21 @@ export function Dropzone(
     files:File[]
   }) {
     const formData = new FormData();
-    formData.append('file', files![0]);
-    const { data } = await axios.post('http://localhost:8000/detect-image', formData);
+    for (const file of files) {
+      formData.append('files', file);
+    }
 
-    setDataImage([...dataImage, `data:image/jpg;base64,${data}`]);
+    handleSetIsProcessDetection(true);
 
-    handleChangeStateDropZone();
+    try {
+      const { data } = await axios.post<string[]>('http://localhost:8000/image/detect', formData);
+      data.map((bytes) => dataImage.push(`data:image/jpg;base64,${bytes}`));
+
+      handleChangeStateDropZone();
+    } catch {
+      console.log('Не удалось загузить файлы изображения');
+    } finally {
+      handleSetIsProcessDetection(false);
+    }
   }
 }
