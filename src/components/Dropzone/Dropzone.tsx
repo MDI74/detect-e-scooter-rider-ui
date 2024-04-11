@@ -3,6 +3,7 @@ import ReactDropZone from 'react-dropzone';
 import clsx from 'clsx';
 import React from 'react';
 import { ActionBar } from '../ActionBar/ActionBar';
+import { UploaderImage } from './UploaderImage/UploaderImage';
 
 export function Dropzone(
   {
@@ -21,8 +22,9 @@ export function Dropzone(
 ) {
   return (
     <ReactDropZone
+      noClick
       disabled={isProcessDetection}
-      onDrop={(files) => detect({ files })}
+      onDrop={(files) => detectImage(files)}
     >
       {({
         getRootProps, getInputProps, isDragAccept,
@@ -43,14 +45,12 @@ export function Dropzone(
               />
             )}
             <div className="dropzone__inner">
-              <button
-                type="button"
-                className="button dropzone__choice-button"
-                disabled={isProcessDetection}
-              >
-                Выбрать изображения
-              </button>
-              <p className="dropzone__description">или перетащите изображения cюда</p>
+              <h2 className="dropzone__description">Выберите файлы для обработки в формате PNG или JPG</h2>
+              <UploaderImage
+                detectImage={detectImage}
+                isProcessDetection={isProcessDetection}
+              />
+              <p className="dropzone__drop-text">или перетащите их cюда</p>
             </div>
 
           </div>
@@ -59,11 +59,7 @@ export function Dropzone(
     </ReactDropZone>
   );
 
-  async function detect({
-    files,
-  }: {
-    files:File[]
-  }) {
+  async function detectImage(files:File[]) {
     const formData = new FormData();
     for (const file of files) {
       formData.append('files', file);

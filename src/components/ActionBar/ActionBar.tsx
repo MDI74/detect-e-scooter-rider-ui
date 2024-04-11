@@ -16,7 +16,6 @@ export function ActionBar({
           {openDropZone
             ? (
               <button
-
                 type="button"
                 className="button dropzone__close-button"
                 onClick={(e) => {
