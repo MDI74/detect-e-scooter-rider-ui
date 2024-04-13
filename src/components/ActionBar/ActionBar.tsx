@@ -10,7 +10,7 @@ export function ActionBar({
   handleChangeStateDropZone: () => void
 }) {
   return (
-    <div className="action-bar">
+    <section className="action-bar">
       <div className="container action-bar__wrapper">
         <div className="action-bar__inner">
           {openDropZone
@@ -47,7 +47,7 @@ export function ActionBar({
           </button>
         </div>
       </div>
-    </div>
+    </section>
   );
 
   async function downloadZip() {

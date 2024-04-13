@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import React from 'react';
 import { ActionBar } from '../ActionBar/ActionBar';
 import { UploaderImage } from './UploaderImage/UploaderImage';
+import { useErrorDialogContext } from '../ErrorDialog/ErrorDialogProvider';
 
 export function Dropzone(
   {
@@ -20,6 +21,8 @@ export function Dropzone(
     handleSetIsProcessDetection: (isProcessStarted: boolean) => void
   },
 ) {
+  const { setErrorMessage } = useErrorDialogContext();
+
   return (
     <ReactDropZone
       noClick
@@ -72,8 +75,10 @@ export function Dropzone(
       data.map((bytes) => dataImage.push(`data:image/jpg;base64,${bytes}`));
 
       handleChangeStateDropZone();
-    } catch {
-      console.log('Не удалось загузить файлы изображения');
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        setErrorMessage(error.response?.data.detail);
+      }
     } finally {
       handleSetIsProcessDetection(false);
     }

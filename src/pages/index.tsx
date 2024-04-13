@@ -6,6 +6,7 @@ import { ImageSlider } from '@/components/ImageSlider/ImageSlider';
 import { ActionBar } from '@/components/ActionBar/ActionBar';
 import { Dropzone } from '@/components/Dropzone/Dropzone';
 import Preloader from '@/components/Preloader/Preloader';
+import { ErrorDialogProvider } from '@/components/ErrorDialog/ErrorDialogProvider';
 
 export default function HomePage() {
   const [dataImage] = useState<string[]>([]);
@@ -21,23 +22,25 @@ export default function HomePage() {
       </Head>
       <Header />
       <Layout>
-        {!openDropZone && (
-          <ActionBar
-            isProcessDetection={isProcessDetection}
-            openDropZone={openDropZone}
-            handleChangeStateDropZone={handleChangeStateDropZone}
-          />
-        )}
-        {openDropZone && (
-          <Dropzone
-            isProcessDetection={isProcessDetection}
-            openDropZone={openDropZone}
-            dataImage={dataImage}
-            handleChangeStateDropZone={handleChangeStateDropZone}
-            handleSetIsProcessDetection={handleSetIsProcessDetection}
-          />
-        )}
-        { !openDropZone && dataImage.length !== 0 && <ImageSlider dataImageSrcList={dataImage} />}
+        <ErrorDialogProvider>
+          {!openDropZone && (
+            <ActionBar
+              isProcessDetection={isProcessDetection}
+              openDropZone={openDropZone}
+              handleChangeStateDropZone={handleChangeStateDropZone}
+            />
+          )}
+          {openDropZone && (
+            <Dropzone
+              isProcessDetection={isProcessDetection}
+              openDropZone={openDropZone}
+              dataImage={dataImage}
+              handleChangeStateDropZone={handleChangeStateDropZone}
+              handleSetIsProcessDetection={handleSetIsProcessDetection}
+            />
+          )}
+          { !openDropZone && dataImage.length !== 0 && <ImageSlider dataImageSrcList={dataImage} />}
+        </ErrorDialogProvider>
       </Layout>
       {isProcessDetection && <Preloader />}
     </>

@@ -1,0 +1,46 @@
+.error-dialog {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 100;
+  max-width: 600px;
+  transform: translate(-50%, -50%);
+
+  &__wrapper {
+    border-radius: 10px;
+    min-width: 300px;
+    min-height: 90px;
+    background-color: $color-white-main;
+  }
+
+  &__inner {
+    padding: 20px;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    border-radius: 10px 10px 0 0;
+    min-height: 40px;
+    background-color: $color-error-dialog-header;
+  }
+
+  &__title {
+    padding-left: 20px;
+  }
+
+  &__message {
+    font-size: 18px;
+    word-wrap: break-word;
+  }
+
+  &__buttons-panel {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+  }
+
+  &__button {
+    min-width: 100px;
+  }
+}
