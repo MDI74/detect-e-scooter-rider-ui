@@ -1,27 +1,31 @@
 import { ChangeEvent } from 'react';
 
-export function UploaderImage({
-  isProcessDetection,
-  detectImage,
+export function Uploader({
+  disabled,
+  multiple = true,
+  accept,
+  onChange,
 }: {
-  isProcessDetection: boolean
-  detectImage: (files:File[]) => void
+  disabled: boolean;
+  multiple?: boolean;
+  accept: string;
+  onChange: (files:File[]) => void;
 }) {
   return (
     <label
-      className="uploader-image"
+      className="uploader"
     >
       <input
-        className="uploader-image__input"
+        className="uploader__input"
         onChange={handleChange}
-        disabled={isProcessDetection}
+        disabled={disabled}
         type="file"
         value=""
-        multiple
-        accept=".png, .jpg"
+        multiple={multiple}
+        accept={accept}
       />
       <span
-        className="uploader-image__text"
+        className="uploader__text"
       >
         Выбрать изображения
       </span>
@@ -30,6 +34,6 @@ export function UploaderImage({
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     const files: File[] = Object.values(event.target.files!);
-    detectImage(files);
+    onChange(files);
   }
 }

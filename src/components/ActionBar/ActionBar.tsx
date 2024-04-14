@@ -1,13 +1,12 @@
-import axios from 'axios';
 import { zipDownload } from '@/utils/zip-download';
 import { Button } from '../Button/Button';
 
 export function ActionBar({
-  isProcessDetection,
+  disabled,
   openDropZone,
   handleChangeStateDropZone,
 }: {
-  isProcessDetection: boolean
+  disabled: boolean
   openDropZone: boolean
   handleChangeStateDropZone: () => void
 }) {
@@ -23,7 +22,7 @@ export function ActionBar({
                   e.stopPropagation();
                   handleChangeStateDropZone();
                 }}
-                disabled={isProcessDetection}
+                disabled={disabled}
               >
                 Вернуться назад
               </Button>
@@ -31,14 +30,14 @@ export function ActionBar({
             : (
               <Button
                 className="action-bar__add-button"
-                disabled={isProcessDetection}
+                disabled={disabled}
                 onClick={() => handleChangeStateDropZone()}
               >
                 Добавить изображения
               </Button>
             )}
           <Button
-            disabled={isProcessDetection}
+            disabled={disabled}
             onClick={() => zipDownload({ apiUrl: 'image/download-zip' })}
           >
             Скачать

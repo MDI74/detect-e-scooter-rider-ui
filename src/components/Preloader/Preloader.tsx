@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 import preloader from '../../../public/preloader.svg';
 
-export default function Preloader() {
+export function Preloader() {
   return (
     <div className="preloader">
       <Image src={preloader} alt="Preloader" />

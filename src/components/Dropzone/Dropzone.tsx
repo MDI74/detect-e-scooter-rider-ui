@@ -1,33 +1,25 @@
-import axios from 'axios';
 import ReactDropZone from 'react-dropzone';
 import clsx from 'clsx';
-import React from 'react';
-import { ActionBar } from '../ActionBar/ActionBar';
-import { UploaderImage } from './UploaderImage/UploaderImage';
-import { useErrorDialogContext } from '../ErrorDialog/ErrorDialogProvider';
+import React, { ReactNode } from 'react';
 
 export function Dropzone(
   {
-    isProcessDetection,
-    openDropZone,
-    dataImage,
-    handleChangeStateDropZone,
-    handleSetIsProcessDetection,
+    onDrop,
+    disabled,
+    description,
+    uploadButton,
   }: {
-    isProcessDetection: boolean
-    openDropZone: boolean;
-    dataImage: string[]
-    handleChangeStateDropZone: () => void
-    handleSetIsProcessDetection: (isProcessStarted: boolean) => void
+    onDrop: (filse: File[]) => void;
+    disabled: boolean;
+    description: string;
+    uploadButton: ReactNode
   },
 ) {
-  const { setErrorMessage } = useErrorDialogContext();
-
   return (
     <ReactDropZone
       noClick
-      disabled={isProcessDetection}
-      onDrop={(files) => detectImage(files)}
+      disabled={disabled}
+      onDrop={(files) => onDrop(files)}
     >
       {({
         getRootProps, getInputProps, isDragAccept,
@@ -40,19 +32,9 @@ export function Dropzone(
           })}
           >
             <input {...getInputProps()} />
-            {dataImage.length !== 0 && (
-              <ActionBar
-                isProcessDetection={isProcessDetection}
-                openDropZone={openDropZone}
-                handleChangeStateDropZone={handleChangeStateDropZone}
-              />
-            )}
             <div className="dropzone__inner">
-              <h2 className="dropzone__description">Выберите файлы для обработки в формате PNG или JPG</h2>
-              <UploaderImage
-                detectImage={detectImage}
-                isProcessDetection={isProcessDetection}
-              />
+              <h2 className="dropzone__description">{description}</h2>
+              {uploadButton}
               <p className="dropzone__drop-text">или перетащите их cюда</p>
             </div>
 
@@ -61,26 +43,4 @@ export function Dropzone(
       )}
     </ReactDropZone>
   );
-
-  async function detectImage(files:File[]) {
-    const formData = new FormData();
-    for (const file of files) {
-      formData.append('files', file);
-    }
-
-    handleSetIsProcessDetection(true);
-
-    try {
-      const { data } = await axios.post<string[]>('http://localhost:8000/image/detect', formData);
-      data.map((bytes) => dataImage.push(`data:image/jpg;base64,${bytes}`));
-
-      handleChangeStateDropZone();
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        setErrorMessage(error.response?.data.detail);
-      }
-    } finally {
-      handleSetIsProcessDetection(false);
-    }
-  }
 }
