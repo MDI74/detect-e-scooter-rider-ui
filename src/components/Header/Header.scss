@@ -3,6 +3,8 @@
   background-color: $color-white-main;
 
   &__wrapper {
+    display: flex;
+    justify-content: space-between;
     padding-top: 20px;
     padding-bottom: 20px;
   }

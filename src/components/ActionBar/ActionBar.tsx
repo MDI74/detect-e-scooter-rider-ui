@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { zipDownload } from '@/utils/zip-download';
+import { Button } from '../Button/Button';
 
 export function ActionBar({
   isProcessDetection,
@@ -15,9 +17,8 @@ export function ActionBar({
         <div className="action-bar__inner">
           {openDropZone
             ? (
-              <button
-                type="button"
-                className="button dropzone__close-button"
+              <Button
+                className="dropzone__close-button"
                 onClick={(e) => {
                   e.stopPropagation();
                   handleChangeStateDropZone();
@@ -25,41 +26,25 @@ export function ActionBar({
                 disabled={isProcessDetection}
               >
                 Вернуться назад
-              </button>
+              </Button>
             )
             : (
-              <button
-                type="button"
-                className="button action-bar__add-button"
+              <Button
+                className="action-bar__add-button"
                 disabled={isProcessDetection}
                 onClick={() => handleChangeStateDropZone()}
               >
                 Добавить изображения
-              </button>
+              </Button>
             )}
-          <button
-            type="button"
-            className="button"
+          <Button
             disabled={isProcessDetection}
-            onClick={downloadZip}
+            onClick={() => zipDownload({ apiUrl: 'image/download-zip' })}
           >
             Скачать
-          </button>
+          </Button>
         </div>
       </div>
     </section>
   );
-
-  async function downloadZip() {
-    const data = await axios.get('http://localhost:8000/image/download-zip', { responseType: 'blob' });
-
-    const url = window.URL.createObjectURL(new Blob([data.data]));
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'detect-image.zip';
-    document.body.appendChild(a);
-    a.click();
-    window.URL.revokeObjectURL(url);
-    document.body.removeChild(a);
-  }
 }
