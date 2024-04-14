@@ -7,7 +7,7 @@ import { ActionBar } from '@/components/ActionBar/ActionBar';
 import { Dropzone } from '@/components/Dropzone/Dropzone';
 import { Preloader } from '@/components/Preloader/Preloader';
 import { useErrorDialogContext } from '@/components/ErrorDialog/ErrorDialogProvider';
-import { Uploader } from '@/components/Dropzone/Uploader/Uploader';
+import { Uploader } from '@/components/Uploader/Uploader';
 
 export default function DetectPage() {
   const [dataImage] = useState<string[]>([]);
@@ -32,13 +32,15 @@ export default function DetectPage() {
         )}
         {openDropZone && (
           <Dropzone
-            onDrop={detectImage}
+            onDrop={detect}
             disabled={isProcessDetection}
+            dropText="или перетащите их cюда"
             description="Выберите файлы для обработки в формате PNG или JPG"
             uploadButton={(
               <Uploader
-                onChange={detectImage}
+                onChange={detect}
                 disabled={isProcessDetection}
+                text="Выбрать изображения"
                 accept=".png, .jpg"
               />
             )}
@@ -50,7 +52,7 @@ export default function DetectPage() {
     </>
   );
 
-  async function detectImage(files:File[]) {
+  async function detect(files:File[]) {
     const formData = new FormData();
     for (const file of files) {
       formData.append('files', file);
@@ -59,7 +61,7 @@ export default function DetectPage() {
     setIsProcessDetection(true);
 
     try {
-      const { data } = await axios.post<string[]>('http://localhost:8000/image/detect', formData);
+      const { data } = await axios.post<string[]>('http://localhost:8000/images/detect', formData);
       data.map((bytes) => dataImage.push(`data:image/jpg;base64,${bytes}`));
 
       handleChangeStateDropZone();

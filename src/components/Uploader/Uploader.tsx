@@ -4,11 +4,13 @@ export function Uploader({
   disabled,
   multiple = true,
   accept,
+  text,
   onChange,
 }: {
   disabled: boolean;
   multiple?: boolean;
   accept: string;
+  text: string;
   onChange: (files:File[]) => void;
 }) {
   return (
@@ -27,7 +29,7 @@ export function Uploader({
       <span
         className="uploader__text"
       >
-        Выбрать изображения
+        {text}
       </span>
     </label>
   );

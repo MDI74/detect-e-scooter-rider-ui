@@ -7,18 +7,23 @@ export function Dropzone(
     onDrop,
     disabled,
     description,
+    dropText,
+    multiple = true,
     uploadButton,
   }: {
     onDrop: (filse: File[]) => void;
     disabled: boolean;
+    multiple?: boolean;
     description: string;
-    uploadButton: ReactNode
+    dropText: string;
+    uploadButton: ReactNode;
   },
 ) {
   return (
     <ReactDropZone
       noClick
       disabled={disabled}
+      multiple={multiple}
       onDrop={(files) => onDrop(files)}
     >
       {({
@@ -35,9 +40,8 @@ export function Dropzone(
             <div className="dropzone__inner">
               <h2 className="dropzone__description">{description}</h2>
               {uploadButton}
-              <p className="dropzone__drop-text">или перетащите их cюда</p>
+              <p className="dropzone__drop-text">{dropText}</p>
             </div>
-
           </div>
         </section>
       )}

@@ -1,0 +1,12 @@
+.tracking-result {
+  padding-top: 40px;
+
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__video {
+    max-width: 800px;
+  }
+}

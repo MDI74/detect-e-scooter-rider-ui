@@ -4,11 +4,13 @@ import { Button } from '../Button/Button';
 export function ActionBar({
   disabled,
   openDropZone,
+  isDetect = true,
   handleChangeStateDropZone,
 }: {
-  disabled: boolean
-  openDropZone: boolean
-  handleChangeStateDropZone: () => void
+  disabled: boolean;
+  openDropZone: boolean;
+  isDetect?: boolean;
+  handleChangeStateDropZone: () => void;
 }) {
   return (
     <section className="action-bar">
@@ -33,12 +35,16 @@ export function ActionBar({
                 disabled={disabled}
                 onClick={() => handleChangeStateDropZone()}
               >
-                Добавить изображения
+                {isDetect ? 'Добавить изображения' : 'Загрузить видео'}
               </Button>
             )}
           <Button
             disabled={disabled}
-            onClick={() => zipDownload({ apiUrl: 'image/download-zip' })}
+            onClick={() => zipDownload({
+              apiUrl: isDetect
+                ? 'images/download-zip'
+                : 'video/download-zip',
+            })}
           >
             Скачать
           </Button>
