@@ -6,7 +6,7 @@ export function Navigate() {
     <nav className="navigate">
       <ul className="navigate__list">
         <li className="navigate__item">
-          <Link href="/detect">
+          <Link href="/">
             <Button>Детектирование</Button>
           </Link>
         </li>

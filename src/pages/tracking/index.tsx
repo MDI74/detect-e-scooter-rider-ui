@@ -10,7 +10,7 @@ import { useErrorDialogContext } from '@/components/ErrorDialog/ErrorDialogProvi
 import { Video } from '@/components/TrackingResult/TrackingResult';
 
 export default function TrackingPage() {
-  const [videoSrc, setVideoSrc] = useState('1');
+  const [videoSrc, setVideoSrc] = useState<string>();
   const [openDropZone, setOpenDropZone] = useState(true);
   const [isProcessTracking, setIsProcessTracking] = useState(false);
   const { setErrorMessage } = useErrorDialogContext();
@@ -37,14 +37,14 @@ export default function TrackingPage() {
             multiple={false}
             dropText="или перетащите его cюда"
             disabled={isProcessTracking}
-            description="Выберите файл для обработки в формате MP3 или MP4"
+            description="Выберите файл для обработки в формате MP4"
             uploadButton={(
               <Uploader
                 onChange={track}
                 text="Выбрать видео"
                 disabled={isProcessTracking}
                 multiple={false}
-                accept=".mp4, .mp3"
+                accept=".mp4"
               />
             )}
           />

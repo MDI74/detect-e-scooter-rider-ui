@@ -12,7 +12,7 @@ export async function zipDownload({
   const url = window.URL.createObjectURL(new Blob([data.data]));
   const a = document.createElement('a');
   a.href = url;
-  a.download = fileName ?? 'result.zip';
+  a.download = fileName ?? 'results.zip';
   document.body.appendChild(a);
   a.click();
   window.URL.revokeObjectURL(url);

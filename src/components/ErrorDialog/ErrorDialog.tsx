@@ -1,10 +1,12 @@
+import { useState } from 'react';
+
 export function ErrorDialog({
-  errorMessage,
-  onClose,
+  message,
 }: {
-  errorMessage: string;
-  onClose: () => void
+  message: string | null;
 }) {
+  const [errorMessage, setErrorMessage] = useState<string | null>(message);
+
   return errorMessage ? (
     <div className="error-dialog">
       <div className="error-dialog__wrapper">
@@ -17,7 +19,7 @@ export function ErrorDialog({
             <button
               type="button"
               className="button error-dialog__button"
-              onClick={onClose}
+              onClick={() => setErrorMessage(null)}
             >
               Закрыть
             </button>

@@ -29,8 +29,7 @@ export const ErrorDialogProvider = ({ children }: PropsWithChildren) => {
     <ErrorDialogContext.Provider value={value}>
       {errorMessage && (
         <ErrorDialog
-          errorMessage={errorMessage}
-          onClose={() => setErrorMessage(null)}
+          message={errorMessage}
         />
       )}
       {children}
