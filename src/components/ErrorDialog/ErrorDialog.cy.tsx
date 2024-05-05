@@ -2,22 +2,18 @@ import { ErrorDialog } from './ErrorDialog';
 
 describe('ErrorDialog', () => {
   it(`
-  GIVEN ErrorDialog component
-  WHEN errorMessage not null
-  THEN ErrorDialog is visible
-  `, () => {
+    GIVEN ErrorDialog component
+    WHEN errorMessage is null
+    THEN ErrorDialog is not visible
+    `, () => {
     mountComponent({
-      errorMessage: 'Расширения файла должно быть png или jpg',
+      errorMessage: null,
     });
 
     cy.get('.error-dialog')
-      .should('exist');
-
-    cy.contains('Расширения файла должно быть png или jpg');
+      .should('not.exist');
   });
-});
 
-describe('ErrorDialog', () => {
   it(`
   GIVEN ErrorDialog component
   WHEN errorMessage not null and user click by close button
@@ -35,20 +31,20 @@ describe('ErrorDialog', () => {
     cy.get('.error-dialog')
       .should('not.exist');
   });
-});
 
-describe('ErrorDialog', () => {
   it(`
   GIVEN ErrorDialog component
-  WHEN errorMessage is null
-  THEN ErrorDialog is not visible
+  WHEN errorMessage not null
+  THEN ErrorDialog is visible
   `, () => {
     mountComponent({
-      errorMessage: null,
+      errorMessage: 'Расширения файла должно быть png или jpg',
     });
 
     cy.get('.error-dialog')
-      .should('not.exist');
+      .should('exist');
+
+    cy.contains('Расширения файла должно быть png или jpg');
   });
 });
 

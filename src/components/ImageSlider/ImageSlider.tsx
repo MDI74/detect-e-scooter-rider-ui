@@ -13,6 +13,10 @@ export function ImageSlider({
     thumbnailClass: 'image-slider__thumbnail',
   }));
 
+  if (imageList.length < 1) {
+    return null;
+  }
+
   return (
     <section className="image-slider">
       <div className="container image-slider__wrapper">
